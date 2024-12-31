@@ -11,7 +11,10 @@ import mergeTypeDef from "./graphql/typeDefs/index.js";
 import passport from "passport";
 import session from "express-session";
 import ConnectMongo from "connect-mongodb-session";
+import { buildContext } from "graphql-passport";
+import { configurePassport } from "./config/passport.config.js";
 
+configurePassport();
 const app=express();
 const httpServer=http.createServer(app);
 
@@ -21,6 +24,20 @@ const store = new MongoDBStore({
     collection:"sessions",
 })
 store.on("error",(err)=>console.log(err));
+app.use(session({
+    secret:secret.SESSION_SECRET,
+    resave:false,
+    saveUninitialized:false,
+    cookie:{
+        maxAge:1000*60*60*24*7,
+        httpOnly:true
+    },
+    store:store
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 const server=new ApolloServer({
     typeDefs:mergeTypeDef,
     resolvers:mergeResolver,
@@ -28,11 +45,14 @@ const server=new ApolloServer({
 })
 await server.start();
 app.use('/',
-    cors(),
+    cors({
+        origin: "htp://localhost:5173",
+        credentials:true,
+    }),
     express.json(),
     expressMiddleware(server,
-        {context: async ({req}) =>({req}),
-}),
+        {context: async ({req,res}) => buildContext({req,res})}
+    ),
 );
 
 await new Promise((resolve)=>httpServer.listen({port:secret.PORT},resolve))
