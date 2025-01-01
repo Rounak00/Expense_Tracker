@@ -7,7 +7,7 @@ import NotFound from "./pages/NotFoundPage";
 import Header from "./components/ui/Header";
 
 function App() {
-	const authUser = false;
+	const authUser = true;
 	return (
 		<>
 			{authUser && <Header />}

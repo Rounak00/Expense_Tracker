@@ -1,4 +1,5 @@
 import { useState } from "react";
+import TransactionFormSkeleton from "../components/skeletons/TransactionFromSekeleton";
 
 const TransactionPage = () => {
 	const [formData, setFormData] = useState({
@@ -44,7 +45,7 @@ const TransactionPage = () => {
 							id='description'
 							name='description'
 							type='text'
-							placeholder='Rent, Groceries, Salary, etc.'
+							placeholder='Rent, Groceries, Stocks, etc.'
 							value={formData.description}
 							onChange={handleInputChange}
 						/>
@@ -147,7 +148,7 @@ const TransactionPage = () => {
 							id='location'
 							name='location'
 							type='text'
-							placeholder='New York'
+							placeholder='Place or Location'
 							value={formData.location}
 							onChange={handleInputChange}
 						/>
