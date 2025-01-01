@@ -28,7 +28,7 @@ const userTypeDef =`#graphql
 
    input LogInInput {
        username:String!
-	   Password:String!
+	   password:String!
    }
 
    type LogOutResponse {

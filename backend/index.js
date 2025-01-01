@@ -44,9 +44,9 @@ const server=new ApolloServer({
     plugins:[ApolloServerPluginDrainHttpServer({httpServer})]
 })
 await server.start();
-app.use('/',
+app.use('/graphql',
     cors({
-        origin: "htp://localhost:5173",
+        origin: "http://localhost:5173",
         credentials:true,
     }),
     express.json(),
@@ -57,7 +57,7 @@ app.use('/',
 
 await new Promise((resolve)=>httpServer.listen({port:secret.PORT},resolve))
 .then(async()=>{
-    console.log("hello Server is running !!!");
+    console.log(`hello Server is running !!! -> ${secret.PORT}`);
     await connectDB();
 })
 .catch((err)=>{

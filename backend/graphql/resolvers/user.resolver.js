@@ -30,7 +30,7 @@ const userResolver = {
         if (existUser) {
           throw new Error("User already exist, Choose a different name");
         }
-        const salt = await bcrypt.getSalt(10);
+        const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
         const maleAvatar = `https://avatar.iran.liara.run/public/boy?username=${username}`;
@@ -52,6 +52,9 @@ const userResolver = {
     logIn:async(_,{input},context)=>{
          try{
             const {username,password}=input;
+            if (!username || !password) {
+              throw new Error("All fields are required");
+            }
             const {user}=await context.authenticate("graphql-local",{username,password});
             await context.login(user);
             return user;
@@ -62,10 +65,10 @@ const userResolver = {
     logOut:async (_,__,context)=>{
         try{
           await context.logout();
-          req.session.destroy((err)=>{
+          context.req.session.destroy((err)=>{
             if(err) throw err;
           })
-          res.clearCookie("connect.sid");
+          context.res.clearCookie("connect.sid");
           return {message:"Logged out successfully"}
         }catch(err){
             throw new Error(err.message || "Internal server error");
