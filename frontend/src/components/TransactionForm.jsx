@@ -1,4 +1,11 @@
+import { useMutation } from "@apollo/client";
+import { CREACTE_TRANSACTION } from "../graphql/mutations/transaction.mutation";
+import toast from "react-hot-toast";
+
+
 const TransactionForm = () => {
+	const [createtransaction, { loading }] = useMutation(CREACTE_TRANSACTION,
+		{refetchQueries:["GetTransactions"]});
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
@@ -12,7 +19,21 @@ const TransactionForm = () => {
 			location: formData.get("location"),
 			date: formData.get("date"),
 		};
-		console.log("transactionData", transactionData);
+		try{
+			if( !transactionData.description || !transactionData.paymentType || !transactionData.category || !transactionData.amount || !transactionData.date){
+				toast.error("All fields are required!");
+				return;
+			}
+			await createtransaction({
+				variables: {
+					input: transactionData,
+				},
+			});
+			form.reset();
+			toast.success("Transaction created successfully!");
+		}catch(err){
+			toast.error(err.message);	
+		}
 	};
 
 	return (
@@ -101,7 +122,7 @@ const TransactionForm = () => {
 				{/* AMOUNT */}
 				<div className='w-full flex-1 mb-6 md:mb-0'>
 					<label className='block uppercase text-white text-xs font-bold mb-2' htmlFor='amount'>
-						Amount($)
+						Amount (Rs.)
 					</label>
 					<input
 						className='appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
@@ -152,8 +173,9 @@ const TransactionForm = () => {
           from-pink-500 to-pink-500 hover:from-pink-600 hover:to-pink-600
 						disabled:opacity-70 disabled:cursor-not-allowed'
 				type='submit'
+				disabled={loading}
 			>
-				Add Transaction
+				{loading ? "Loading ...":"Add Transaction"}
 			</button>
 		</form>
 	);

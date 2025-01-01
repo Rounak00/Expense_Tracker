@@ -23,6 +23,10 @@ const transactionResolver = {
   Mutation: {
     createTransaction: async (_, { input }, context) => {
       try {
+        if (!input.amount || !input.description || !input.paymentType || !input.category || !input.date) {
+          throw new Error("All fields are required");
+          return ;
+        }
         const newTransaction = new Transactions({
           ...input,
           userId: context.getUser()._id,
