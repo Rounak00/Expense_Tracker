@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { GET_TRANSACTION } from "../graphql/queries/transaction.query";
 import { UPDATE_TRANSACTION } from "../graphql/mutations/transaction.mutation";
 import toast from "react-hot-toast";
@@ -8,7 +8,7 @@ import TransactionFormSkeleton from "../components/skeletons/TransactionFromSeke
 
 const TransactionPage = () => {
 	const {id}=useParams();
-	
+	const navigate=useNavigate();
     const {loading,data}=useQuery(GET_TRANSACTION,{variables:{ id:id}});
 	// console.log("Transaction",data);
 	const [updateTransaction,{loading:updateTransactionLoading}]=useMutation(UPDATE_TRANSACTION,{refetchQueries:["GetTransactions","GetTransactionStatistics"]});
@@ -34,6 +34,7 @@ const TransactionPage = () => {
 					}
 				}
 			});
+			navigate("/");
 			toast.success("Transaction updated successfully!");
 		}catch(err){
            toast.error(err.message);
