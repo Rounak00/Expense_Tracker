@@ -45,5 +45,13 @@ Here I have actually keep the frontend abd backend togather so that forntend and
 First, clone the repo:
 
 ```bash
-git clone https://github.com/sumit-kr-das/time-track.git
+git clone https://github.com/Rounak00/Expense_Tracker.git
 ```
+<br/>
+## Add .env files that is the secret of this project
+```bash
+For backend find .env from config
+For frontend find .env by search import.meta.env as its a vite project
+```
+<br/>
+
