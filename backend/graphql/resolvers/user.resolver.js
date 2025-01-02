@@ -1,3 +1,4 @@
+import Transactions from "../../models/transaction.model.js";
 import Users from "../../models/user.model.js";
 import bcrypt from "bcryptjs";
 const userResolver = {
@@ -75,5 +76,16 @@ const userResolver = {
         }
     }
   },
+  User:{
+    transactions:async (parent)=>{
+      try{
+        const transactions=await Transactions.find({userId:parent._id});
+        return transactions;
+      }catch(err){
+        // console.log("Error in user.transactions resolver:",err);
+        throw new Error("Error in user.transactions resolver");
+      }
+    }
+  }
 };
 export default userResolver;
