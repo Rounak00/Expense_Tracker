@@ -47,11 +47,11 @@ First, clone the repo:
 ```bash
 git clone https://github.com/Rounak00/Expense_Tracker.git
 ```
-<br/>
+
 ## Add .env files that is the secret of this project
 ```bash
 For backend find .env from config
 For frontend find .env by search import.meta.env as its a vite project
 ```
-<br/>
+
 
