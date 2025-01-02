@@ -54,4 +54,20 @@ For backend find .env from config
 For frontend find .env by search import.meta.env as its a vite project
 ```
 
+## For Dev Run
+```bash
+at root> npm install
+at root> npm run dev
+```
+```bash
+at root/frontend> npm install
+at root.frontend> npm run dev
+```
+
+## For Production Run
+```bash
+at root> npm run build
+at root> npm run start
+```
+
 
