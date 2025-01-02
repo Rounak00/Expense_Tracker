@@ -12,3 +12,38 @@ Currently, two official plugins are available:
 <img src="./preview/poster.jpg" alt="Home Page"/>
 
  <br />
+## Screens
+- Sign UP Page
+- Login Page
+- Home Page
+- Edit Transaction Page
+- Error Page
+  <br />
+
+## Quick Glimpses of the site :
+
+ <table>
+  <tr>
+    <td>Sign Up or Register Page<img src="./preview/signupPage.png" alt="Register Page" /></td>
+    <td>Sign In or Log In Page<img src="./preview/loginPage.png" alt="Login Page" /></td>
+  </tr>
+  <tr>
+    <td>Home Page with empty records <img src="./preview/homePage.png" alt="Home Page" /></td>
+    <td>Home Page <img src="./preview/homeWithNoTransactionPage.png" alt="Home Page" /></td>
+  </tr>
+  <tr>
+    <td>Edit Record Page <img src="./preview/editTransactionPage.png" alt="Edit Record Page" /></td>
+    <td>Error Page <img src="./preview/errorPage.png" alt="Error Page" /></td>
+  </tr>
+ </table>
+<br/>
+
+Here I have actually keep the frontend abd backend togather so that forntend and backend run in same domain and backend use frontend build folder.
+# Getting Started
+
+## Clone the repo
+First, clone the repo:
+
+```bash
+git clone https://github.com/sumit-kr-das/time-track.git
+```
