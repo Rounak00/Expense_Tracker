@@ -7,6 +7,7 @@ import { GET_AUTHENTICATED_USER, GET_USER_AND_TRANSACTION } from "../graphql/que
 const Cards = () => {
 	const { data, loading } = useQuery(GET_TRANSACTIONS);
 	const { data: authUser } = useQuery(GET_AUTHENTICATED_USER);
+    // eslint-disable-next-line no-unused-vars
     const {data:userAndTransactions}=useQuery(GET_USER_AND_TRANSACTION,{variables:{userId:authUser?.authUser?._id}});
 	//now we can user UserAndTransactions query to get user and transactions data
 	return (

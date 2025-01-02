@@ -13,7 +13,9 @@ import session from "express-session";
 import ConnectMongo from "connect-mongodb-session";
 import { buildContext } from "graphql-passport";
 import { configurePassport } from "./config/passport.config.js";
+import path from "path";
 
+const __dirname=path.resolve();
 configurePassport();
 const app=express();
 const httpServer=http.createServer(app);
@@ -54,6 +56,11 @@ app.use('/graphql',
         {context: async ({req,res}) => buildContext({req,res})}
     ),
 );
+
+app.use(express.static(path.join(__dirname,"frontend/dist")));
+app.get("*",(req,res)=>{
+    res.sendFile(path.join(__dirname,"frontend/dist","index.html"));
+})
 
 await new Promise((resolve)=>httpServer.listen({port:secret.PORT},resolve))
 .then(async()=>{
